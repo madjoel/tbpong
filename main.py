@@ -9,27 +9,26 @@ import time, math, termbox
 # main function
 def main():
     tb = termbox.Termbox()
-    somestr = "Hello Termbox!"
-    for i in range(len(somestr)):
-        tb.change_cell(i+1,1, ord(somestr[i]), 0, 0)
+    pad_l = Paddle(tb, 'l', 10)
+    pad_r = Paddle(tb, 'r', 10)
+    ball = Ball(tb)
 
-    render_border(tb)
-    b = Ball(tb)
-    b.render()
-    tb.present()
-    time.sleep(1)
-    b.move(5, 5)
-    b.render()
+    while True: # game loop
+        tb.clear()
 
-    pl = Paddle(tb, 'l', 10)
-    pl.render()
-    tb.present()
-    pl.move(-12)
-    pl.render()
-    tb.present()
+        pad_l.render()
+        pad_r.render()
+        ball.render()
 
-    tb.present()
-    time.sleep(3)
+        tb.present()
+
+        event = tb.peek_event(50)
+        if event:
+            (type, ch, key, mod, w, h, x, y) = event
+            if type == termbox.EVENT_KEY:
+                if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
+                    break
+
     tb.close()
 
 # render a basic border
