@@ -31,17 +31,6 @@ def main():
 
     tb.close()
 
-# render a basic border
-def render_border(p_tb, p_char='#'):
-    p_char = ord(p_char)
-    width, height = p_tb.width(), p_tb.height()
-    for x in range(width):
-        p_tb.change_cell(x, 0, p_char, 0, 0)
-        p_tb.change_cell(x, height-1, p_char, 0, 0)
-    for y in range(height):
-        p_tb.change_cell(0, y, p_char, 0, 0)
-        p_tb.change_cell(width-1, y, p_char, 0, 0)
-
 # ball class
 class Ball:
     def __init__(self, p_tb, p_char='O'):
