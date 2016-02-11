@@ -28,6 +28,10 @@ def main():
             if type == termbox.EVENT_KEY:
                 if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
                     break
+                elif key == termbox.KEY_ARROW_UP:
+                    pad_l.move(-1)
+                elif key == termbox.KEY_ARROW_DOWN:
+                    pad_l.move(1)
 
     tb.close()
 
