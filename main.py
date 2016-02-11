@@ -21,6 +21,13 @@ def main():
     b.move(5, 5)
     b.render()
 
+    pl = Paddle(tb, 'l', 10)
+    pl.render()
+    tb.present()
+    pl.move(-12)
+    pl.render()
+    tb.present()
+
     tb.present()
     time.sleep(3)
     tb.close()
@@ -50,6 +57,25 @@ class Ball:
     def move(self, p_x, p_y):
         self._posx += p_x
         self._posy += p_y
+
+# paddle class
+class Paddle:
+    def __init__(self, p_tb, p_align, p_width, p_char='|'):
+        self._tb = p_tb
+        self._align = p_align
+        self._width = p_width
+        self._char = ord(p_char)
+        self._y = math.floor(self._tb.height()/2) - math.floor(self._width/2)
+        if   self._align == "l": self._x = 1
+        elif self._align == "r": self._x = self._tb.width() - 2
+        else: raise Exception("Illegal pos '" + p_align + "', must be in ['l', 'r']")
+
+    def render(self):
+        for y in range(self._width):
+            self._tb.change_cell(self._x, self._y + y, self._char, 0, 0)
+
+    def move(self, p_delta):
+        self._y += p_delta
 
 # entrypoint
 if __name__ == "__main__":
