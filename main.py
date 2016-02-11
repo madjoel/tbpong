@@ -14,7 +14,7 @@ def main():
         tb.change_cell(i+1,1, ord(somestr[i]), 0, 0)
 
     render_border(tb)
-    b = Ball(tb, math.floor(tb.width()/2), math.floor(tb.height()/2))
+    b = Ball(tb)
     b.render()
     tb.present()
     time.sleep(1)
@@ -45,10 +45,10 @@ def render_border(p_tb, p_char='#'):
 
 # ball class
 class Ball:
-    def __init__(self, p_tb, p_posx=1, p_posy=1, p_char='O'):
+    def __init__(self, p_tb, p_char='O'):
         self._tb = p_tb
-        self._posx = p_posx
-        self._posy = p_posy
+        self._posx = math.floor(self._tb.width()/2)
+        self._posy = math.floor(self._tb.height()/2)
         self._char = ord(p_char)
 
     def render(self):
