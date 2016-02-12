@@ -8,48 +8,52 @@ import time, math, termbox
 
 # main function
 def main():
-    tb = termbox.Termbox()
-    pad_l = Paddle(tb, 'l', 10)
-    pad_r = Paddle(tb, 'r', 10)
-    ball = Ball(tb)
-
-    while True: # game loop
-        tb.clear()
-
-        pad_l.render()
-        pad_r.render()
-        ball.render()
-
-        tb.present()
-
-        elapsed = time.perf_counter()
-
-        event = tb.peek_event(30)
-        if event:
-            (type, ch, key, mod, w, h, x, y) = event
-            if type == termbox.EVENT_KEY:
-                if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
-                    break
-                elif key == termbox.KEY_ARROW_UP:
-                    pad_l.move(-1)
-                elif key == termbox.KEY_ARROW_DOWN:
-                    pad_l.move(1)
-
-        elapsed = time.perf_counter() - elapsed
-        if elapsed < 0.03: time.sleep(0.03 - elapsed)
-
-    tb.close()
+    game = Game()
+    game.start()
 
 # main game class
 class Game:
     def __init__(self):
-        pass
+        self._tb = termbox.Termbox()
+        self._pad_l = Paddle(self._tb, 'l', 10)
+        self._pad_r = Paddle(self._tb, 'r', 10)
+        self._ball = Ball(self._tb)
     
     def start(self):
-        pass
+        self.main_loop()
     
     def stop(self):
         pass
+
+    def render_all(self):
+        self._tb.clear()
+        self._pad_l.render()
+        self._pad_r.render()
+        self._ball.render()
+        self._tb.present()
+
+    def main_loop(self):
+        while True: # game loop
+            self.render_all()
+
+            elapsed = time.perf_counter()
+
+            event = self._tb.peek_event(30)
+            if event:
+                (type, ch, key, mod, w, h, x, y) = event
+                if type == termbox.EVENT_KEY:
+                    if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
+                        break
+                    elif key == termbox.KEY_ARROW_UP:
+                        self._pad_l.move(-1)
+                    elif key == termbox.KEY_ARROW_DOWN:
+                        self._pad_l.move(1)
+
+            elapsed = time.perf_counter() - elapsed
+            if elapsed < 0.03: time.sleep(0.03 - elapsed)
+
+        self._tb.close()
+
 
 # ball class
 class Ball:
