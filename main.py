@@ -18,12 +18,14 @@ class Game:
         self._pad_l = Paddle(self._tb, 'l', 10)
         self._pad_r = Paddle(self._tb, 'r', 10)
         self._ball = Ball(self._tb)
+        self._running = False
     
     def start(self):
+        self._running = True
         self.main_loop()
     
     def stop(self):
-        pass
+        self._running = False
 
     def render_all(self):
         self._tb.clear()
@@ -33,7 +35,7 @@ class Game:
         self._tb.present()
 
     def main_loop(self):
-        while True: # game loop
+        while self._running: # game loop
             self.render_all()
 
             elapsed = time.perf_counter()
@@ -43,7 +45,7 @@ class Game:
                 (type, ch, key, mod, w, h, x, y) = event
                 if type == termbox.EVENT_KEY:
                     if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
-                        break
+                        self.stop()
                     elif key == termbox.KEY_ARROW_UP:
                         self._pad_l.move(-1)
                     elif key == termbox.KEY_ARROW_DOWN:
