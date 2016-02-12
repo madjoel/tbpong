@@ -41,8 +41,14 @@ def main():
     tb.close()
 
 # main game class
-class Game(object):
+class Game:
     def __init__(self):
+        pass
+    
+    def start(self):
+        pass
+    
+    def stop(self):
         pass
 
 # ball class
