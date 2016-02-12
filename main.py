@@ -40,6 +40,11 @@ def main():
 
     tb.close()
 
+# main game class
+class Game(object):
+    def __init__(self):
+        pass
+
 # ball class
 class Ball:
     def __init__(self, p_tb, p_char='O'):
