@@ -34,6 +34,9 @@ class Game:
         self._ball.render()
         self._tb.present()
 
+    def do_actions(self):
+        self._ball.move(1, 1)
+
     def handle_input_and_sleep(self):
         elapsed = time.perf_counter()
         event = self._tb.peek_event(30)
@@ -51,11 +54,11 @@ class Game:
 
     def main_loop(self):
         while self._running: # game loop
+            self.do_actions()
             self.render_all()
             self.handle_input_and_sleep()
 
         self._tb.close()
-
 
 # ball class
 class Ball:
