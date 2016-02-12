@@ -22,7 +22,9 @@ def main():
 
         tb.present()
 
-        event = tb.peek_event(50)
+        elapsed = time.perf_counter()
+
+        event = tb.peek_event(30)
         if event:
             (type, ch, key, mod, w, h, x, y) = event
             if type == termbox.EVENT_KEY:
@@ -32,6 +34,9 @@ def main():
                     pad_l.move(-1)
                 elif key == termbox.KEY_ARROW_DOWN:
                     pad_l.move(1)
+
+        elapsed = time.perf_counter() - elapsed
+        if elapsed < 0.03: time.sleep(0.03 - elapsed)
 
     tb.close()
 
