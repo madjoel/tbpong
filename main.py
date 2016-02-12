@@ -34,25 +34,25 @@ class Game:
         self._ball.render()
         self._tb.present()
 
+    def handle_input_and_sleep(self):
+        elapsed = time.perf_counter()
+        event = self._tb.peek_event(30)
+        if event:
+            (type, ch, key, mod, w, h, x, y) = event
+            if type == termbox.EVENT_KEY:
+                if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
+                    self.stop()
+                elif key == termbox.KEY_ARROW_UP:
+                    self._pad_l.move(-1)
+                elif key == termbox.KEY_ARROW_DOWN:
+                    self._pad_l.move(1)
+        elapsed = time.perf_counter() - elapsed
+        if elapsed < 0.03: time.sleep(0.03 - elapsed)
+
     def main_loop(self):
         while self._running: # game loop
             self.render_all()
-
-            elapsed = time.perf_counter()
-
-            event = self._tb.peek_event(30)
-            if event:
-                (type, ch, key, mod, w, h, x, y) = event
-                if type == termbox.EVENT_KEY:
-                    if key in [termbox.KEY_ESC, termbox.KEY_CTRL_C] or ch == 'q':
-                        self.stop()
-                    elif key == termbox.KEY_ARROW_UP:
-                        self._pad_l.move(-1)
-                    elif key == termbox.KEY_ARROW_DOWN:
-                        self._pad_l.move(1)
-
-            elapsed = time.perf_counter() - elapsed
-            if elapsed < 0.03: time.sleep(0.03 - elapsed)
+            self.handle_input_and_sleep()
 
         self._tb.close()
 
