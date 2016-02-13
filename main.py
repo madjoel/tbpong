@@ -58,7 +58,8 @@ class Game:
 
     def main_loop(self):
         while not self._stopped: # game loop
-            self.do_actions()
+            if self._running:
+                self.do_actions()
             self.render_all()
             self.handle_input_and_sleep()
 
