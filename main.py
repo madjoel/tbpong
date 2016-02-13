@@ -39,7 +39,7 @@ class Game:
         self._tb.present()
 
     def do_actions(self):
-        self._ball.move(1, 1)
+        self._ball.move()
 
     def handle_input_and_sleep(self):
         elapsed = time.perf_counter()
@@ -73,14 +73,16 @@ class Ball:
         self._tb = p_tb
         self._posx = math.floor(self._tb.width()/2)
         self._posy = math.floor(self._tb.height()/2)
+        self._vecx = 1
+        self._vecy = 1
         self._char = ord(p_char)
 
     def render(self):
         self._tb.change_cell(self._posx, self._posy, self._char, 0, 0)
 
-    def move(self, p_x, p_y):
-        self._posx += p_x
-        self._posy += p_y
+    def move(self):
+        self._posx += self._vecx
+        self._posy += self._vecy
 
     def coll_top(self):
         return self._posy <= 0
