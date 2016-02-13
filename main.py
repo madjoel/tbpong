@@ -58,6 +58,7 @@ class Game:
                 self._ball.repulse_x()
 
         self._ball.move()
+        self._pad_r.move(self._ball._vecy)
 
     def handle_input_and_sleep(self):
         elapsed = time.perf_counter()
