@@ -82,6 +82,12 @@ class Ball:
         self._posx += p_x
         self._posy += p_y
 
+    def coll_top(self):
+        return self._posy <= 0
+
+    def coll_bot(self):
+        return self._posy >= (self._tb.height()-1)
+
 # paddle class
 class Paddle:
     def __init__(self, p_tb, p_align, p_width, p_char='|'):
