@@ -91,6 +91,11 @@ class Ball:
 
     def coll_top_or_bot(self):
         return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
+    
+    def is_out(self):
+        if   self._posx <= 0: return 'l'
+        elif self._posx >= self._tb.width()-1: return 'r'
+        else: return False
 
 # paddle class
 class Paddle:
