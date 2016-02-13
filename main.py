@@ -53,6 +53,8 @@ class Game:
                     self._pad_l.move(-1)
                 elif key == termbox.KEY_ARROW_DOWN:
                     self._pad_l.move(1)
+                elif key == termbox.KEY_SPACE:
+                    self.play_pause()
         elapsed = time.perf_counter() - elapsed
         if elapsed < 0.03: time.sleep(0.03 - elapsed)
 
