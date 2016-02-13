@@ -124,17 +124,17 @@ class Paddle:
         self._align = p_align
         self._width = p_width
         self._char = ord(p_char)
-        self._y = math.floor(self._tb.height()/2) - math.floor(self._width/2)
-        if   self._align == "l": self._x = 1
-        elif self._align == "r": self._x = self._tb.width() - 2
+        self._posy = math.floor(self._tb.height()/2) - math.floor(self._width/2)
+        if   self._align == "l": self._posx = 1
+        elif self._align == "r": self._posx = self._tb.width() - 2
         else: raise Exception("Illegal pos '" + p_align + "', must be in ['l', 'r']")
 
     def render(self):
         for y in range(self._width):
-            self._tb.change_cell(self._x, self._y + y, self._char, 0, 0)
+            self._tb.change_cell(self._posx, self._posy + y, self._char, 0, 0)
 
     def move(self, p_delta):
-        self._y += p_delta
+        self._posy += p_delta
 
 # entrypoint
 if __name__ == "__main__":
