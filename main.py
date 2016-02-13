@@ -51,9 +51,11 @@ class Game:
 
         ball_x_dir = self._ball.get_x_direction()
         if ball_x_dir == 'r':
-            pass # only check collision with right paddle
+            if self._ball.coll_with_paddle(self._pad_r):
+                self._ball.repulse_x()
         else:
-            pass # only check collision with left paddle
+            if self._ball.coll_with_paddle(self._pad_l):
+                self._ball.repulse_x()
 
         self._ball.move()
 
@@ -108,6 +110,10 @@ class Ball:
 
     def coll_top_or_bot(self):
         return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
+
+    def coll_with_paddle(self, p_paddle):
+        return (self._posx == p_paddle._posx) and \
+                (self._posy >= p_paddle._posy and self._posy <= p_paddle._posy+p_paddle._width)
 
     def get_x_direction(self):
         return 'r' if self._vecx > 0 else 'l'
