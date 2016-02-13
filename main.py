@@ -39,6 +39,8 @@ class Game:
         self._tb.present()
 
     def do_actions(self):
+        if self._ball.coll_top_or_bot():
+            self._ball.repulse_y()
         self._ball.move()
 
     def handle_input_and_sleep(self):
@@ -87,11 +89,8 @@ class Ball:
     def repulse_y(self):
         self._vecy *= (-1)
 
-    def coll_top(self):
-        return self._posy <= 0
-
-    def coll_bot(self):
-        return self._posy >= (self._tb.height()-1)
+    def coll_top_or_bot(self):
+        return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
 
 # paddle class
 class Paddle:
