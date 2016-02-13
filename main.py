@@ -39,13 +39,22 @@ class Game:
         self._tb.present()
 
     def do_actions(self):
+        out_on_side = self._ball.is_out()
+        if out_on_side:
+            if out_on_side == 'r':
+                pass # increase score, reset ball, etc...
+            elif out_on_side == 'l':
+                pass # increase score, reset ball, etc...
+
         if self._ball.coll_top_or_bot():
             self._ball.repulse_y()
+
         ball_x_dir = self._ball.get_x_direction()
         if ball_x_dir == 'r':
             pass # only check collision with right paddle
         else:
             pass # only check collision with left paddle
+
         self._ball.move()
 
     def handle_input_and_sleep(self):
@@ -93,6 +102,9 @@ class Ball:
 
     def repulse_y(self):
         self._vecy *= (-1)
+
+    def repulse_x(self):
+        self._vecx *= (-1)
 
     def coll_top_or_bot(self):
         return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
