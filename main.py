@@ -18,14 +18,18 @@ class Game:
         self._pad_l = Paddle(self._tb, 'l', 10)
         self._pad_r = Paddle(self._tb, 'r', 10)
         self._ball = Ball(self._tb)
+        self._stopped = True
         self._running = False
     
     def start(self):
-        self._running = True
+        self._stopped = False
         self.main_loop()
     
     def stop(self):
-        self._running = False
+        self._stopped = True
+
+    def play_pause(self):
+        self._running = not self._running
 
     def render_all(self):
         self._tb.clear()
@@ -53,7 +57,7 @@ class Game:
         if elapsed < 0.03: time.sleep(0.03 - elapsed)
 
     def main_loop(self):
-        while self._running: # game loop
+        while not self._stopped: # game loop
             self.do_actions()
             self.render_all()
             self.handle_input_and_sleep()
