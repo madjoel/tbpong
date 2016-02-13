@@ -20,11 +20,11 @@ class Game:
         self._ball = Ball(self._tb)
         self._stopped = True
         self._running = False
-    
+
     def start(self):
         self._stopped = False
         self.main_loop()
-    
+
     def stop(self):
         self._stopped = True
 
@@ -83,6 +83,9 @@ class Ball:
     def move(self):
         self._posx += self._vecx
         self._posy += self._vecy
+
+    def repulse_y(self):
+        self._vecy *= (-1)
 
     def coll_top(self):
         return self._posy <= 0
