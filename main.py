@@ -113,8 +113,11 @@ class Ball:
         return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
 
     def coll_with_paddle(self, p_paddle):
-        return (self._posx == p_paddle._posx) and \
-                (self._posy >= p_paddle._posy and self._posy <= p_paddle._posy+p_paddle._width)
+        if (self._posx == p_paddle._posx):
+            if (self._posy >= p_paddle._posy) and (self._posy <= (p_paddle._posy + p_paddle._width)):
+                return True
+        else:
+            return False
 
     def get_x_direction(self):
         return 'r' if self._vecx > 0 else 'l'
