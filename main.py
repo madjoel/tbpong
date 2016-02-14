@@ -51,7 +51,8 @@ class Game:
             self._ball.repulse_y()
 
         if self._ball.get_x_direction() == 'r':
-            if self._ball.coll_with_paddle(self._pad_r):
+            coll_pos = self._ball.coll_with_paddle(self._pad_r)
+            if coll_pos:
                 self._ball.repulse_x()
         else:
             if self._ball.coll_with_paddle(self._pad_l):
@@ -114,8 +115,12 @@ class Ball:
 
     def coll_with_paddle(self, p_paddle):
         if (self._posx == p_paddle._posx):
-            if (self._posy >= p_paddle._posy) and (self._posy <= (p_paddle._posy + p_paddle._width)):
-                return True
+            if (self._posy >= p_paddle._posy) and (self._posy <= (p_paddle._posy + (p_paddle._width/2 -1))):
+                return 'u'
+            elif (self._posy >= (p_paddle._posy + (p_paddle._width/2))) and (self._posy <= (p_paddle._posy + (p_paddle._width -1))):
+                return 'd'
+            else:
+                return False
         else:
             return False
 
