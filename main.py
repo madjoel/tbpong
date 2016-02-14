@@ -41,6 +41,7 @@ class Game:
     def do_actions(self):
         out_on_side = self._ball.is_out()
         if out_on_side:
+            self.stop() # for now
             if out_on_side == 'r':
                 pass # increase score, reset ball, etc...
             elif out_on_side == 'l':
@@ -49,8 +50,7 @@ class Game:
         if self._ball.coll_top_or_bot():
             self._ball.repulse_y()
 
-        ball_x_dir = self._ball.get_x_direction()
-        if ball_x_dir == 'r':
+        if self._ball.get_x_direction() == 'r':
             if self._ball.coll_with_paddle(self._pad_r):
                 self._ball.repulse_x()
         else:
