@@ -127,6 +127,9 @@ class Ball:
     def get_x_direction(self):
         return 'r' if self._vecx > 0 else 'l'
 
+    def get_y_direction(self):
+        return 'd' if self._vecy > 0 else 'u'
+
     def is_out(self):
         if   self._posx <= 0: return 'l'
         elif self._posx >= self._tb.width()-1: return 'r'
