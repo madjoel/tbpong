@@ -45,9 +45,9 @@ class Game:
         if out_on_side:
             self.stop() # for now
             if out_on_side == 'r':
-                pass # increase score, reset ball, etc...
+                self._score.inc_l()
             elif out_on_side == 'l':
-                pass # increase score, reset ball, etc...
+                self._score.inc_r()
 
         if self._ball.coll_top_or_bot():
             self._ball.repulse_y()
@@ -178,7 +178,7 @@ class Score:
         self._val_l += 1
 
     def inc_r(self):
-        self.inc_r += 1
+        self._val_r += 1
 
     def reset(self):
         self._val_l = 0
