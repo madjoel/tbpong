@@ -15,6 +15,7 @@ def main():
 class Game:
     def __init__(self):
         self._tb = termbox.Termbox()
+        self._score = Score(self._tb)
         self._pad_l = Paddle(self._tb, 'l', 10)
         self._pad_r = Paddle(self._tb, 'r', 10)
         self._ball = Ball(self._tb)
@@ -33,6 +34,7 @@ class Game:
 
     def render_all(self):
         self._tb.clear()
+        self._score.render()
         self._pad_l.render()
         self._pad_r.render()
         self._ball.render()
@@ -158,6 +160,29 @@ class Paddle:
 
     def move(self, p_delta):
         self._posy += p_delta
+
+# score class
+class Score:
+    def __init__(self, p_tb):
+        self._tb = p_tb
+        self._val_l = 0
+        self._val_r = 0
+
+    def render(self):
+        center_x = math.floor(self._tb.width()/2)
+        self._tb.change_cell(center_x, 1, ord(':'), 0, 0)
+        self._tb.change_cell(center_x-2, 1, ord(str(self._val_l)), 0, 0)
+        self._tb.change_cell(center_x+2, 1, ord(str(self._val_r)), 0, 0)
+
+    def inc_l(self):
+        self._val_l += 1
+
+    def inc_r(self):
+        self.inc_r += 1
+
+    def reset(self):
+        self._val_l = 0
+        self._val_r = 0
 
 # entrypoint
 if __name__ == "__main__":
