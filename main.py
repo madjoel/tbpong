@@ -4,7 +4,7 @@
 # @author Matthieu Laqua
 # ----------------------
 
-import time, math, termbox
+import time, math, termbox, random
 
 # main function
 def main():
@@ -97,11 +97,12 @@ class Game:
 # ball class
 class Ball:
     def __init__(self, p_tb, p_char='O'):
+        random.seed(a=time.perf_counter())
         self._tb = p_tb
         self._posx = math.floor(self._tb.width()/2)
         self._posy = math.floor(self._tb.height()/2)
-        self._vecx = 1
-        self._vecy = 1
+        self._vecx = random.choice([-1,1])
+        self._vecy = random.choice([-1,1])
         self._char = ord(p_char)
 
     def render(self):
