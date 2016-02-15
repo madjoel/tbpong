@@ -20,7 +20,7 @@ class Game:
         self._pad_r = Paddle(self._tb, 'r', 10)
         self._ball = Ball(self._tb)
         self._stopped = True
-        self._running = False
+        self._paused = True
 
     def start(self):
         self._stopped = False
@@ -30,7 +30,7 @@ class Game:
         self._stopped = True
 
     def play_pause(self):
-        self._running = not self._running
+        self._paused = not self._paused
 
     def render_all(self):
         self._tb.clear()
@@ -87,7 +87,7 @@ class Game:
 
     def main_loop(self):
         while not self._stopped: # game loop
-            if self._running:
+            if not self._paused:
                 self.do_actions()
             self.render_all()
             self.handle_input_and_sleep()
@@ -99,11 +99,14 @@ class Ball:
     def __init__(self, p_tb, p_char='O'):
         random.seed(a=time.perf_counter())
         self._tb = p_tb
+        self._char = ord(p_char)
+        self.init_reset()
+
+    def init_reset(self):
         self._posx = math.floor(self._tb.width()/2)
         self._posy = math.floor(self._tb.height()/2)
         self._vecx = random.choice([-1,1])
         self._vecy = random.choice([-1,1])
-        self._char = ord(p_char)
 
     def render(self):
         self._tb.change_cell(self._posx, self._posy, self._char, 0, 0)
@@ -166,6 +169,9 @@ class Paddle:
 class Score:
     def __init__(self, p_tb):
         self._tb = p_tb
+        self.init_reset()
+
+    def init_reset(self):
         self._val_l = 0
         self._val_r = 0
 
@@ -182,10 +188,6 @@ class Score:
 
     def inc_r(self):
         self._val_r += 1
-
-    def reset(self):
-        self._val_l = 0
-        self._val_r = 0
 
 # entrypoint
 if __name__ == "__main__":
