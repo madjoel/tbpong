@@ -170,6 +170,8 @@ class Score:
 
     def render(self):
         center_x = math.floor(self._tb.width()/2)
+        for y in range(self._tb.height()):
+            self._tb.change_cell(center_x, y, ord('.'), 0, 0) # draw middle line
         self._tb.change_cell(center_x, 1, ord(':'), 0, 0)
         self._tb.change_cell(center_x-2, 1, ord(str(self._val_l)), 0, 0)
         self._tb.change_cell(center_x+2, 1, ord(str(self._val_r)), 0, 0)
