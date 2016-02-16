@@ -11,6 +11,13 @@ def main():
     game = Game()
     game.start()
 
+# helper functions
+def between(val, lower, upper):
+    if (val >= lower):
+        if (val <= upper):
+            return True
+    return False
+
 # main game class
 class Game:
     def __init__(self):
@@ -126,9 +133,9 @@ class Ball:
 
     def coll_with_paddle(self, p_paddle):
         if (self._posx == p_paddle._posx):
-            if (self._posy >= p_paddle._posy) and (self._posy <= (p_paddle._posy + (p_paddle._width/2 -1))):
+            if between(self._posy, p_paddle._posy, p_paddle._posy + (p_paddle._width/2 -1)):
                 return 'u'
-            elif (self._posy >= (p_paddle._posy + (p_paddle._width/2))) and (self._posy <= (p_paddle._posy + (p_paddle._width -1))):
+            elif between(self._posy, p_paddle._posy + (p_paddle._width/2), p_paddle._posy + (p_paddle._width -1)):
                 return 'd'
             else:
                 return False
