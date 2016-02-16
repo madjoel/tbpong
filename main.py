@@ -110,8 +110,8 @@ class Ball:
         self.init_reset()
 
     def init_reset(self):
-        self._posx = math.floor(self._tb.width()/2)
-        self._posy = math.floor(self._tb.height()/2)
+        self._posx = math.floor(self._tb.width()/2) # middle
+        self._posy = random.choice(range(5, self._tb.height() -6)) # random
         self._vecx = random.choice([-1,1])
         self._vecy = random.choice([-1,1])
 
