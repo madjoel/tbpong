@@ -62,14 +62,22 @@ class Game:
         if self._ball.get_x_direction() == 'r':
             coll_pos = self._ball.coll_with_paddle(self._pad_r)
             if coll_pos:
-                if coll_pos != self._ball.get_y_direction():
-                    self._ball.repulse_y()
+                if coll_pos == 'u':
+                    self._ball._vecy = -1
+                elif coll_pos == 'm':
+                    self._ball._vecy = 0
+                elif coll_pos == 'd':
+                    self._ball._vecy = 1
                 self._ball.repulse_x()
         else:
             coll_pos = self._ball.coll_with_paddle(self._pad_l)
             if coll_pos:
-                if coll_pos != self._ball.get_y_direction():
-                    self._ball.repulse_y()
+                if coll_pos == 'u':
+                    self._ball._vecy = -1
+                elif coll_pos == 'm':
+                    self._ball._vecy = 0
+                elif coll_pos == 'd':
+                    self._ball._vecy = 1
                 self._ball.repulse_x()
 
         self._ball.move()
