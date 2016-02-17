@@ -23,8 +23,8 @@ class Game:
     def __init__(self):
         self._tb = termbox.Termbox()
         self._score = Score(self._tb)
-        self._pad_l = Paddle(self._tb, 'l', 10)
-        self._pad_r = Paddle(self._tb, 'r', 10)
+        self._pad_l = Paddle(self._tb, 'l', 9)
+        self._pad_r = Paddle(self._tb, 'r', 9)
         self._ball = Ball(self._tb)
         self._stopped = True
         self._paused = True
@@ -113,7 +113,7 @@ class Ball:
         self._posx = math.floor(self._tb.width()/2) # middle
         self._posy = random.choice(range(5, self._tb.height() -6)) # random
         self._vecx = random.choice([-1,1])
-        self._vecy = random.choice([-1,1])
+        self._vecy = random.choice([-1,0,1])
 
     def render(self):
         self._tb.change_cell(self._posx, self._posy, self._char, 0, 0)
@@ -133,9 +133,11 @@ class Ball:
 
     def coll_with_paddle(self, p_paddle):
         if (self._posx == p_paddle._posx):
-            if between(self._posy, p_paddle._posy, p_paddle._posy + (p_paddle._width/2 -1)):
+            if between(self._posy, p_paddle._posy, p_paddle._posy + (math.floor(p_paddle._width/3) -1)):
                 return 'u'
-            elif between(self._posy, p_paddle._posy + (p_paddle._width/2), p_paddle._posy + (p_paddle._width -1)):
+            elif between(self._posy, p_paddle._posy + math.floor(p_paddle._width/3), p_paddle._posy + (math.floor(p_paddle._width/3)*2 -1)):
+                return 'm'
+            elif between(self._posy, p_paddle._posy + math.floor(p_paddle._width/3)*2, p_paddle._posy + p_paddle._width -1):
                 return 'd'
             else:
                 return False
