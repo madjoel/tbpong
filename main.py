@@ -50,11 +50,15 @@ class Game:
     def do_actions(self):
         out_on_side = self._ball.is_out()
         if out_on_side:
-            self.stop() # for now
             if out_on_side == 'r':
                 self._score.inc_l()
+                self.play_pause()
+                self._ball.init_reset()
             elif out_on_side == 'l':
                 self._score.inc_r()
+                self.play_pause()
+                self._ball.init_reset()
+            return # if out don't do other actions
 
         if self._ball.coll_top_or_bot():
             self._ball.repulse_y()
