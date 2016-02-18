@@ -22,6 +22,8 @@ def between(val, lower, upper):
 class Game:
     def __init__(self):
         self._tb = termbox.Termbox()
+        self._ticks = 0
+        self._max_ticks = 65535
         self._score = Score(self._tb)
         self._pad_l = Paddle(self._tb, 'l', 9)
         self._pad_r = Paddle(self._tb, 'r', 9)
@@ -75,7 +77,10 @@ class Game:
             self.handle_collision(self._ball.coll_with_paddle(self._pad_l))
 
         self._ball.move()
-        self._pad_r.move(self._ball._vecy)
+        self._pad_r.move(self._ball._vecy) # AI
+
+        self._ticks += 1
+        self._ticks = self._ticks % self._max_ticks
 
     def handle_collision(self, p_coll_pos):
         if p_coll_pos:
