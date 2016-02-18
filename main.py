@@ -203,9 +203,15 @@ class Score:
         center_x = math.floor(self._tb.width()/2)
         for y in range(self._tb.height()):
             self._tb.change_cell(center_x, y, ord('.'), 0, 0) # draw middle line
-        self._tb.change_cell(center_x, 1, ord(':'), 0, 0)
-        self._tb.change_cell(center_x-2, 1, ord(str(self._val_l)), 0, 0)
-        self._tb.change_cell(center_x+2, 1, ord(str(self._val_r)), 0, 0)
+        self._tb.change_cell(center_x, 1, ord(':'), 0, 0) # draw colon
+
+        len_val_l = len(str(self._val_l))
+        for x in range(len_val_l): # draw left value
+            self._tb.change_cell(center_x-2 -(len_val_l-1 -x), 1, ord(str(self._val_l)[x]), 0, 0)
+
+        len_val_r = len(str(self._val_r))
+        for x in range(len_val_r): # draw right value
+            self._tb.change_cell(center_x+2 +x, 1, ord(str(self._val_r)[x]), 0, 0)
 
     def inc_l(self):
         self._val_l += 1
