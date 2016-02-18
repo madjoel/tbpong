@@ -60,28 +60,22 @@ class Game:
             self._ball.repulse_y()
 
         if self._ball.get_x_direction() == 'r':
-            coll_pos = self._ball.coll_with_paddle(self._pad_r)
-            if coll_pos:
-                if coll_pos == 'u':
-                    self._ball._vecy = -1
-                elif coll_pos == 'm':
-                    self._ball._vecy = 0
-                elif coll_pos == 'd':
-                    self._ball._vecy = 1
-                self._ball.repulse_x()
+            self.handle_collision(self._ball.coll_with_paddle(self._pad_r))
         else:
-            coll_pos = self._ball.coll_with_paddle(self._pad_l)
-            if coll_pos:
-                if coll_pos == 'u':
-                    self._ball._vecy = -1
-                elif coll_pos == 'm':
-                    self._ball._vecy = 0
-                elif coll_pos == 'd':
-                    self._ball._vecy = 1
-                self._ball.repulse_x()
+            self.handle_collision(self._ball.coll_with_paddle(self._pad_l))
 
         self._ball.move()
         self._pad_r.move(self._ball._vecy)
+
+    def handle_collision(self, p_coll_pos):
+        if p_coll_pos:
+            if p_coll_pos == 'u':
+                self._ball._vecy = -1
+            elif p_coll_pos == 'm':
+                self._ball._vecy = 0
+            elif p_coll_pos == 'd':
+                self._ball._vecy = 1
+            self._ball.repulse_x()
 
     def handle_input_and_sleep(self):
         elapsed = time.perf_counter()
