@@ -39,6 +39,15 @@ class Game:
     def play_pause(self):
         self._paused = not self._paused
 
+    def reset(self, also_score=False):
+        if not self._paused:
+            self.play_pause()
+        self._ball.init_reset()
+        self._pad_l.init_reset()
+        self._pad_r.init_reset()
+        if also_score:
+            self._score.init_reset()
+
     def render_all(self):
         self._tb.clear()
         self._score.render()
@@ -52,12 +61,9 @@ class Game:
         if out_on_side:
             if out_on_side == 'r':
                 self._score.inc_l()
-                self.play_pause()
-                self._ball.init_reset()
             elif out_on_side == 'l':
                 self._score.inc_r()
-                self.play_pause()
-                self._ball.init_reset()
+            self.reset()
             return # if out don't do other actions
 
         if self._ball.coll_top_or_bot():
