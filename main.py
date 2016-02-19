@@ -180,12 +180,12 @@ class Paddle:
         self._width = p_width
         self._char = ord(p_char)
         self.init_reset()
-        if   self._align == "l": self._posx = 1
-        elif self._align == "r": self._posx = self._tb.width() - 2
-        else: raise Exception("Illegal pos '" + p_align + "', must be in ['l', 'r']")
 
     def init_reset(self):
         self._posy = math.floor(self._tb.height()/2) - math.floor(self._width/2)
+        if   self._align == "l": self._posx = 1
+        elif self._align == "r": self._posx = self._tb.width() - 2
+        else: raise Exception("Illegal pos '" + self._align + "', must be in ['l', 'r']")
 
     def render(self):
         for y in range(self._width):
