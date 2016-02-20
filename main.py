@@ -21,6 +21,7 @@ def between(val, lower, upper):
 # main game class
 class Game:
     def __init__(self):
+        random.seed(a=time.perf_counter())
         self._tb = termbox.Termbox()
         self._ticks = 0
         self._max_ticks = 65535
@@ -121,7 +122,6 @@ class Game:
 # ball class
 class Ball:
     def __init__(self, p_tb, p_char='O'):
-        random.seed(a=time.perf_counter())
         self._tb = p_tb
         self._char = ord(p_char)
         self.init_reset()
@@ -129,7 +129,7 @@ class Ball:
     def init_reset(self):
         self._posx = math.floor(self._tb.width()/2) # middle
         self._posy = random.choice(range(5, self._tb.height() -6)) # random
-        self._vecx = random.choice([-1,1])
+        self._vecx = random.choice([-1,1]) # TODO: [-2,2]
         self._vecy = random.choice([-1,0,1])
 
     def render(self):
@@ -149,7 +149,7 @@ class Ball:
         return (self._posy <= 0) or (self._posy >= (self._tb.height()-1))
 
     def coll_with_paddle(self, p_paddle):
-        if (self._posx == p_paddle._posx):
+        if (self._posx == p_paddle._posx): # or (self._posx + self._vecx > p_paddle._posx): # TODO
             if between(self._posy, p_paddle._posy, p_paddle._posy + (math.floor(p_paddle._width/3) -1)):
                 return 'u'
             elif between(self._posy, p_paddle._posy + math.floor(p_paddle._width/3), p_paddle._posy + (math.floor(p_paddle._width/3)*2 -1)):
