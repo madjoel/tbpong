@@ -78,7 +78,14 @@ class Game:
             self.handle_collision(self._ball.coll_with_paddle(self._pad_l))
 
         self._ball.move()
-        self._pad_r.move(self._ball._vecy) # AI
+
+        # AI paddle
+        if self._pad_r._posy > self._ball._posy:
+            self._pad_r.move(-1)
+        elif self._pad_r._posy + self._pad_r._width -1 < self._ball._posy:
+            self._pad_r.move(1)
+        else:
+            pass
 
         self._ticks += 1
         self._ticks = self._ticks % self._max_ticks
