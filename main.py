@@ -85,7 +85,7 @@ class Game:
         elif self._pad_r._posy + self._pad_r._width -1 < self._ball._posy:
             self._pad_r.move(1)
         else:
-            pass
+            self._pad_r.move(self._pad_r._last_moved)
 
         self._ticks += 1
         self._ticks = self._ticks % self._max_ticks
@@ -193,6 +193,7 @@ class Paddle:
         if   self._align == "l": self._posx = 1
         elif self._align == "r": self._posx = self._tb.width() - 2
         else: raise Exception("Illegal pos '" + self._align + "', must be in ['l', 'r']")
+        self._last_moved = 0
 
     def render(self):
         for y in range(self._width):
@@ -200,6 +201,7 @@ class Paddle:
 
     def move(self, p_delta):
         self._posy += p_delta
+        self._last_moved = p_delta
 
 # score class
 class Score:
