@@ -80,12 +80,13 @@ class Game:
         self._ball.move()
 
         # AI paddle
-        if self._pad_r._posy > self._ball._posy:
-            self._pad_r.move(-1)
-        elif self._pad_r._posy + self._pad_r._width -1 < self._ball._posy:
-            self._pad_r.move(1)
-        else:
-            self._pad_r.move(self._pad_r._last_moved)
+        if self._ticks % 5 != 0: # make the ai paddle move slower
+            if self._pad_r._posy > self._ball._posy:
+                self._pad_r.move(-1)
+            elif self._pad_r._posy + self._pad_r._width -1 < self._ball._posy:
+                self._pad_r.move(1)
+            else:
+                self._pad_r.move(self._pad_r._last_moved)
 
         self._ticks += 1
         self._ticks = self._ticks % self._max_ticks
