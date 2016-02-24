@@ -175,6 +175,9 @@ class Ball:
     def get_y_direction(self):
         return 'd' if self._vecy > 0 else 'u'
 
+    def get_next_collision(self):
+        pass
+
     def is_out(self):
         if   self._posx <= 0: return 'l'
         elif self._posx >= self._tb.width()-1: return 'r'
