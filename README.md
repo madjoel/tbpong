@@ -7,3 +7,6 @@ Instructions
 - Start the game by pressing the space bar
 - Use CTRL-C, ESC, or the Q key to quit the game
 
+-
+This is work-in-progress, the AI still needs some improvements :)
+
