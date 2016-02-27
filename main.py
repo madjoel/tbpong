@@ -57,6 +57,10 @@ class Game:
         self._pad_l.render()
         self._pad_r.render()
         self._ball.render()
+        if self._paused:
+            pause_str = 'PAUSE'
+            for i in range(len(pause_str)):
+                self._tb.change_cell(math.floor(self._tb.width()/2)-2 + i, math.floor(self._tb.height()/2), ord(pause_str[i]), 0, 0)
         self._tb.present()
 
     def do_actions(self):
