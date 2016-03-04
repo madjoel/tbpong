@@ -31,6 +31,7 @@ class Game:
         self._ball = Ball(self._tb)
         self._stopped = True
         self._paused = True
+        self._pause_str = 'PAUSE'
 
     def start(self):
         self._stopped = False
@@ -58,9 +59,8 @@ class Game:
         self._pad_r.render()
         self._ball.render()
         if self._paused:
-            pause_str = 'PAUSE'
-            for i in range(len(pause_str)):
-                self._tb.change_cell(math.floor(self._tb.width()/2)-2 + i, math.floor(self._tb.height()/2), ord(pause_str[i]), 0, 0)
+            for i in range(len(self._pause_str)):
+                self._tb.change_cell(math.floor(self._tb.width()/2)-math.floor(len(self._pause_str)/2) + i, math.floor(self._tb.height()/2), ord(self._pause_str[i]), 0, 0)
         self._tb.present()
 
     def do_actions(self):
