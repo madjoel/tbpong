@@ -180,7 +180,8 @@ class Ball:
         return 'd' if self._vecy > 0 else 'u'
 
     def get_next_collision(self):
-        pass
+        pass # TODO: predict where the ball is colliding next
+             #       so that the AI can react properly
 
     def is_out(self):
         if   self._posx <= 0: return 'l'
